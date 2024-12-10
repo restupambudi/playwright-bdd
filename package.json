@@ -1,0 +1,12 @@
+{
+  "name": "playwright-bdd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/anggiews/playwright-bdd.git",
+  "author": "Anggie GR <anggiewie24@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@cucumber/cucumber": "^11.1.0",
+    "playwright": "^1.49.1"
+  }
+}
