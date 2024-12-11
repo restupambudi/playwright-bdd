@@ -1,13 +1,17 @@
+// google-test.ts
 import { Before, After, Given, When, Then } from '@cucumber/cucumber';
 import { chromium } from 'playwright';
-import {expect} from "playwright/test";
+import GooglePage from "../Page/google-page";
+
 
 let browser: any;
 let page: any;
+let googlePage: GooglePage; // Declare a variable for the GooglePage object
 
 Before(async function() {
     browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
+    googlePage = new GooglePage(page); // Initialize GooglePage object with the page
 });
 
 After(async function() {
@@ -15,16 +19,13 @@ After(async function() {
 });
 
 Given('I am on the Google search page', async function() {
-    await page.goto('https://www.google.com');
+    await googlePage.goTo(); // Use the Page Object to go to Google
 });
 
 When('I search for {string}', async function(searchQuery: string) {
-    await page.getByLabel('Cari').click();
-    await page.getByLabel('Cari').fill('Playwright');
+    await googlePage.search(searchQuery); // Use the Page Object to perform the search
 });
 
 Then('I should see the results for {string}', async function(searchQuery: string) {
-        await page.goto('https://www.google.com/search?q=Playwright&sca_esv=da052a448206c26a&source=hp&ei=LQdYZ_CXBI2l2roPopetyAU&iflsig=AL9hbdgAAAAAZ1gVPY1fiWYDHdjbiQMMi3cKG09QjN85&ved=0ahUKEwiw4v2b75yKAxWNklYBHaJLC1kQ4dUDCA4&uact=5&oq=Playwright&gs_lp=Egdnd3Mtd2l6IgpQbGF5d3JpZ2h0MgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABEiUKlCQBljPGnACeACQAQCYAZoBoAHjBaoBBDEwLjG4AQPIAQD4AQGYAg2gApYGqAIKwgIKEAAYAxjqAhiPAcICChAuGAMY6gIYjwHCAgsQABiABBixAxiDAcICDhAAGIAEGLEDGIMBGIoFwgIOEC4YgAQYsQMYgwEYigXCAg4QLhiABBjHARiOBRivAcICBRAuGIAEwgIIEAAYgAQYsQPCAg4QLhiABBixAxjRAxjHAcICCxAuGIAEGLEDGIMBmAMH8QWdj17uUWfhhZIHBDEyLjGgB8Fa&sclient=gws-wiz');
-        await expect(page.locator('#rso')).toContainText('Playwright');
-
+    await googlePage.verifyResults(searchQuery); // Use the Page Object to verify search results
 });
