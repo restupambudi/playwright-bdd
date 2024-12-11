@@ -1,9 +1,8 @@
 module.exports = {
   default: {
-    requireModule: ['ts-node/register'],
-    require: ['Steps/**/*.ts'],
     paths: ['Features/**/*.feature'],
-    format: ['progress-bar'],
-    publishQuiet: true
+    require: ['Steps/**/*.ts'],
+    requireModule: ['ts-node/register'],
+    format: ['progress', 'html:reports/cucumber-report.html']
   }
 };

@@ -20,8 +20,11 @@ export default class GooglePage {
 
     // Method to perform search
     async search(query: string): Promise<void> {
-        await this.searchBox.fill(query); // Fill the search input
-        await this.searchButton.click(); // Click the search button
+        // await this.searchBox.fill(query); // Fill the search input
+        // await this.searchButton.click(); // Click the search button
+        await this.page.getByLabel('Cari').click();
+        await this.page.getByLabel('Cari').fill('Playwright');
+        await this.page.keyboard.press('Enter');
     }
 
     // Method to validate search results
