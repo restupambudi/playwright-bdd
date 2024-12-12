@@ -21,3 +21,14 @@ npm install -g yarn
 ```
 yarn create playwright
 ```
+6. Run Test Feature (BDD)
+```
+yarn test
+```
+7. Run Test Playwright UI
+```
+yarn playwright test --ui
+```
+8. Check Report
+   Go to folder reports and run file cucumber-report.html
+   
