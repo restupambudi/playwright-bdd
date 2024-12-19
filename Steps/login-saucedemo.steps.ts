@@ -45,3 +45,7 @@ Then('I should see the result for {string}', async function(result: string) {
 Then('I should see incorrect password message {string}', async function(result: string) {
     await saucedemoPage.verifyIncorrectPassword(result); // Use the Page Object to verify incorrect password
 });
+
+Then('The system requires me to input username {string}', async function(result: string) {
+    await saucedemoPage.verifyEmptyUsernamePassword(result); // Use the Page Object to verify empty username and password
+});

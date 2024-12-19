@@ -44,7 +44,14 @@ export default class SauceDemoPage {
     // Method to validate login fail | incorrect password
     async verifyIncorrectPassword(query: string): Promise<void> {
         const resultsLocator = this.page.getByText('Username and password do not match');
-        await resultsLocator.waitFor(); // Wait until login success
-        await expect(resultsLocator).toContainText(query); // Assert that the results contain "Products"
+        await resultsLocator.waitFor(); // Wait until login fail | incorrect password
+        await expect(resultsLocator).toContainText(query);
+    }
+
+    // Method to validate login fail | empty username and password
+    async verifyEmptyUsernamePassword(query: string): Promise<void> {
+        const resultsLocator = this.page.getByText('Username is required');
+        await resultsLocator.waitFor(); // Wait until login fail | empty username and password
+        await expect(resultsLocator).toContainText(query);
     }
 }
