@@ -30,10 +30,18 @@ When('I input password {string}', async function(password: string) {
     await saucedemoPage.inputPassword(password); // Use the Page Object to input password
 });
 
+When('I input incorrect password {string}', async function(password: string) {
+    await saucedemoPage.inputIncorrectPassword(password); // Use the Page Object to input incorrect password
+});
+
 When('I click login button', async function() {
     await saucedemoPage.clickLogin(); // Use the Page Object to login
 });
 
 Then('I should see the result for {string}', async function(result: string) {
     await saucedemoPage.verifyResults(result); // Use the Page Object to verify result
+});
+
+Then('I should see incorrect password message {string}', async function(result: string) {
+    await saucedemoPage.verifyIncorrectPassword(result); // Use the Page Object to verify incorrect password
 });

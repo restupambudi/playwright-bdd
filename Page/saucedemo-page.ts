@@ -24,6 +24,11 @@ export default class SauceDemoPage {
         await this.page.locator('[data-test="password"]').fill('secret_sauce');
     }
 
+    // Method to input incorrect password
+    async inputIncorrectPassword(query: string): Promise<void> {
+        await this.page.locator('[data-test="password"]').fill('123');
+    }
+
     // Method to login
     async clickLogin(): Promise<void> {
         await this.page.getByRole('button', { name: 'LOGIN' }).click();
@@ -32,6 +37,13 @@ export default class SauceDemoPage {
     // Method to validate login success
     async verifyResults(query: string): Promise<void> {
         const resultsLocator = this.page.getByText('Products', { exact: true });
+        await resultsLocator.waitFor(); // Wait until login success
+        await expect(resultsLocator).toContainText(query); // Assert that the results contain "Products"
+    }
+
+    // Method to validate login fail | incorrect password
+    async verifyIncorrectPassword(query: string): Promise<void> {
+        const resultsLocator = this.page.getByText('Username and password do not match');
         await resultsLocator.waitFor(); // Wait until login success
         await expect(resultsLocator).toContainText(query); // Assert that the results contain "Products"
     }
