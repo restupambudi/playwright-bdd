@@ -38,6 +38,14 @@ When('I click login button', async function() {
     await saucedemoPage.clickLogin(); // Use the Page Object to login
 });
 
+When('I click logout button', async function() {
+    await saucedemoPage.clickLogout(); // Use the Page Object to login
+});
+
+When('I click Open Menu', async function() {
+    await saucedemoPage.clickOpenMenu();
+});
+
 Then('I should see the result for {string}', async function(result: string) {
     await saucedemoPage.verifyResults(result); // Use the Page Object to verify result
 });
