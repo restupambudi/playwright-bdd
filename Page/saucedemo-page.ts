@@ -11,7 +11,7 @@ export default class SauceDemoPage {
 
     // Method to navigate to Sauce Demo
     async goTo(): Promise<void> {
-        await this.page.goto('https://www.saucedemo.com/');
+        await this.page.goto('https://www.saucedemo.com');
     }
 
     // Method to input username
@@ -21,11 +21,6 @@ export default class SauceDemoPage {
 
     // Method to input password
     async inputPassword(password: string): Promise<void> {
-        await this.page.locator('[data-test="password"]').fill(password);
-    }
-
-    // Method to input incorrect password
-    async inputIncorrectPassword(password: string): Promise<void> {
         await this.page.locator('[data-test="password"]').fill(password);
     }
 
@@ -40,11 +35,11 @@ export default class SauceDemoPage {
 
     // Method to logout
     async clickLogout(): Promise<void> {
-        await this.page.getByTestId('logout_sidebar_link').click();
+        await this.page.locator('[data-test="logout-sidebar-link"]').click();
     }
 
     // Method to validate login success
-    async verifyResults(result: string): Promise<void> {
+    async verifyLogin(result: string): Promise<void> {
         const resultsLocator = this.page.getByText('Products', { exact: true });
 
         await resultsLocator.waitFor(); // Wait until login success
@@ -68,10 +63,10 @@ export default class SauceDemoPage {
     }
 
     // Method to validate login fail | empty username and password
-    async verifyLoginPage(result: string): Promise<void> {
-        const resultsLocator = this.page.getByText('Accepted usernames are');
+    async verifyLogout(result: string): Promise<void> {
+        const resultsLocator = this.page.getByRole('heading', { name: 'Accepted usernames are:' });
 
-        await resultsLocator.waitFor(); // Wait until logout success
-        await expect(resultsLocator).toContainText(result); // Assert that the results contain "Accepted usernames are"
+        await resultsLocator.waitFor({ state : 'visible' }); // Wait until logout success
+        await expect(resultsLocator).toHaveText(new RegExp(result)); // Assert that the results contain "Accepted usernames are"
     }
 }

@@ -22,16 +22,14 @@ Given('I am on the Sauce Demo page', async function() {
     await saucedemoPage.goTo(); // Use the Page Object to go to Sauce Demo
 });
 
-When('I input username {string}', async function(username: string) {
+When('I input username {string} and password {string}', async function(username: string, password: string) {
     await saucedemoPage.inputUsername(username); // Use the Page Object to input username
-});
-
-When('I input password {string}', async function(password: string) {
     await saucedemoPage.inputPassword(password); // Use the Page Object to input password
 });
 
-When('I input incorrect password {string}', async function(password: string) {
-    await saucedemoPage.inputIncorrectPassword(password); // Use the Page Object to input incorrect password
+When('I input valid username {string} and invalid password {string}', async function(username: string, password: string) {
+    await saucedemoPage.inputUsername(username); // Use the Page Object to input username
+    await saucedemoPage.inputPassword(password); // Use the Page Object to input password
 });
 
 When('I click login button', async function() {
@@ -42,12 +40,12 @@ When('I click logout button', async function() {
     await saucedemoPage.clickLogout(); // Use the Page Object to login
 });
 
-When('I click Open Menu', async function() {
+When('I go to Open Menu', async function() {
     await saucedemoPage.clickOpenMenu();
 });
 
 Then('I should see the result for {string}', async function(result: string) {
-    await saucedemoPage.verifyResults(result); // Use the Page Object to verify result
+    await saucedemoPage.verifyLogin(result); // Use the Page Object to verify result
 });
 
 Then('I should see incorrect password message {string}', async function(result: string) {
