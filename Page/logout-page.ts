@@ -1,4 +1,3 @@
-// google-page.ts
 import { Page, Locator } from '@playwright/test';
 import {expect} from "playwright/test";
 
@@ -33,6 +32,11 @@ export default class SauceDemoPage {
         await this.page.getByRole('button', { name: 'LOGIN' }).click();
     }
 
+    async addToCart(): Promise<void> {
+        await this.page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
+        await this.page.locator('[data-test="shopping-cart-link"]').click();
+    }
+
     // Method to logout
     async clickLogout(): Promise<void> {
         await this.page.locator('[data-test="logout-sidebar-link"]').click();
@@ -62,6 +66,13 @@ export default class SauceDemoPage {
         await expect(resultsLocator).toContainText(result);
     }
 
+    async verifyProductInCart(product: string): Promise<void> {
+        const resultsLocator = this.page.getByText('Sauce Labs Backpack');
+        
+        await resultsLocator.waitFor(); // Wait until login fail | empty username and password
+        await expect(resultsLocator).toContainText(product);
+    }
+
     // Method to validate login fail | empty username and password
     async verifyLogout(result: string): Promise<void> {
         const resultsLocator = this.page.getByRole('heading', { name: 'Accepted usernames are:' });
@@ -69,4 +80,5 @@ export default class SauceDemoPage {
         await resultsLocator.waitFor({ state : 'visible' }); // Wait until logout success
         await expect(resultsLocator).toHaveText(new RegExp(result)); // Assert that the results contain "Accepted usernames are"
     }
+    
 }

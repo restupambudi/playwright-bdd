@@ -1,5 +1,8 @@
 Feature: Logout Sauce Demo
 
+  # Background:
+  #   Given I am on the dashboard page
+
   @logout
   Scenario: Logout
     Given I am on the dashboard page
