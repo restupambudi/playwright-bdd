@@ -1,27 +1,14 @@
-import { Before, After, When, Then } from '@cucumber/cucumber';
-import { chromium } from 'playwright';
+import { When, Then } from '@cucumber/cucumber';
 import LogoutPage from "../Page/logout-page";
-
-
-let browser: any;
-let page: any;
-let logoutPage: LogoutPage;
-
-Before(async function() {
-    browser = await chromium.launch({ headless: false });
-    page = await browser.newPage();
-    logoutPage = new LogoutPage(page); 
-});
-
-After(async function() {
-    await browser.close();
-});
+import '../Steps/share.steps';
 
 When('I open menu bar, I click logout button', async function() {
+    const logoutPage = new LogoutPage(this.page);
     await logoutPage.clickOpenMenu();
     await logoutPage.clickLogout();
 });
 
 Then('I should see the result {string}', async function(result: string) {
+    const logoutPage = new LogoutPage(this.page);
     await logoutPage.verifyLogout(result);
 });

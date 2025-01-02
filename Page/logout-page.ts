@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import {expect} from "playwright/test";
 
-export default class SauceDemoPage {
+export default class LogoutPage {
     private page: Page;
 
     constructor(page: Page) {
