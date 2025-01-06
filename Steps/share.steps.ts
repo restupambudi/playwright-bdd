@@ -1,5 +1,5 @@
 import { Given, Before, After } from '@cucumber/cucumber';
-import playwright, { Browser, Page } from 'playwright';
+import playwright from 'playwright';
 import LoginPage from '../Page/login-page';
 
 Before(async function () {
